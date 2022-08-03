@@ -20,6 +20,7 @@ def read_password_file(filename, separator=':'):
             Name of the file.
         separator : str
             String that separates the account name and the password.
+
         Returns: 
         ----------
         dict
@@ -44,7 +45,9 @@ def read_password_file(filename, separator=':'):
 
 
 def write_to_password_file(filename, account_name, password):
-    pass
+    with open(filename, 'a', encoding='utf-8') as file:
+        file.write('\n' + account_name + ':' + password)
+    file.close()
 
 
 def get_or_add():
@@ -79,4 +82,7 @@ if(access_password['password'] == ACCESS_PASSWORD):
         print('\nCopied to clipboard!')
     else:
         # If they want to add a password:
-        write_to_password_file()
+        new_account = inquirer.prompt([inquirer.Text('name', message='What is the name of the account?'), inquirer.Password(
+            'password', message='What is the password for {name}')])
+        write_to_password_file(
+            '.passwords.txt', new_account['name'], new_account['password'])
