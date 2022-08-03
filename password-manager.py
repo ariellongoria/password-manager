@@ -86,3 +86,6 @@ if(access_password['password'] == ACCESS_PASSWORD):
             'password', message='What is the password for {name}')])
         write_to_password_file(
             '.passwords.txt', new_account['name'], new_account['password'])
+
+        os.system('cls')
+        print('\nAdded account!')
